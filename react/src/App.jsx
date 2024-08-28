@@ -65,9 +65,9 @@ const App = () => {
 
     const createCard = (e, index) => {
         e.preventDefault();
-        if (card.trim() !== '') {
+        if (card[index].trim() !== '') {
             const updatedBoards = [...boards];
-            updatedBoards[index].cards.push({ content: card });
+            updatedBoards[index].cards.push({ content: card[index] });
             setBoards(updatedBoards);
             setCard(card.map((c, i) => (i === index ? "" : c)))
             hideForm(index);
@@ -80,7 +80,7 @@ const App = () => {
 
     const hideForm = (index) => {
         setToggleForm(toggleForm.map((visible, i) => i === index ? false : visible));
-        setCard("");
+        setCard(card.map((c, i) => (i === index ? "" : c)));
     };
 
     useEffect(() => {
@@ -119,7 +119,7 @@ const App = () => {
                                 <form onSubmit={(e) => createCard(e, index)} className="w-full">
                                     <textarea
                                         ref={(el) => inputRef.current[index] = el}
-                                        value={card}
+                                        value={card[index]}
                                         className="scroll-m-0 bg-white px-4 py-2 w-full rounded-lg text-black focus:outline-none"
                                         style={{ border: `1px solid ${board.color}` }}
                                         onChange={(e) => setCard(card.map((c, i) => (i === index ? e.target.value : c)))}
